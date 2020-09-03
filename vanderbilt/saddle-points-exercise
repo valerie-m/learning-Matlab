@@ -1,0 +1,16 @@
+function indices = saddle(M)
+    indices = [];
+    [row, col] = size(M);
+    
+    for ii = 1:row
+        for jj = 1:col
+            if ~isempty(find(M(ii, jj) < M(ii,:), 1)) | ~isempty(find(M(ii, jj) > M(:,jj), 1))
+                jj = jj + 1;
+            else
+                indices = [indices ; ii jj];
+                jj = jj + 1;
+            end
+        end
+        ii = ii + 1;
+    end
+end
