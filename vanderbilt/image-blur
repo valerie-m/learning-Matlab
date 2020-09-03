@@ -1,0 +1,30 @@
+function output = blur(img, w)
+  B = double(img);
+  [r, c] = size(img);
+  output = zeros(r,c);
+  
+  for ii = 1:r
+      for jj = 1:c
+          r1 = ii - w;
+          r2 = ii + w;
+          c1 = jj - w;
+          c2 = jj + w;
+          if r1 < 1
+              r1 = 1;
+          end
+          if r2 > r
+              r2 = r;
+          end
+          if c1 < 1
+              c1 = 1;
+          end
+          if c2 > c
+              c2 = c;
+          end
+          m = B(r1:r2, c1:c2);
+          output(ii, jj) = mean(m(:));
+      end
+  end
+  output= uint8(output);
+  tf = isequal(output, img)
+end
