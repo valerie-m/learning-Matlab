@@ -1,0 +1,19 @@
+function output = echo_gen(input, fs, delay, amp)
+    [row col] = size(input);
+    addDelay = round(delay * fs);
+    overlay = zeros([addDelay + row, col]);
+    original = overlay;
+        
+    for i=1:row
+        original(i, 1) = input(i, 1);
+        overlay(i+addDelay, 1) = input(i, 1) * amp;
+    end
+    
+    output = overlay + original;
+    range = abs(output) ;
+    maxrange = max(range);
+    
+    if maxrange>1
+        output = output/maxrange;
+    end   
+end
